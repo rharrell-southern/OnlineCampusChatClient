@@ -74,19 +74,49 @@ Meteor.methods({
 });
 
 var generateHTMLChat = function(roomId) {
-    var html = '<div id="emailBody"><ul style="list-style:none;margin:0px;padding:0px;width:650px;">';
+    var html = '<html><head>
+    <style>
+        ul {
+          list-style: none;
+          margin: 0px;
+          padding: 0px;
+          
+        }
+        li {
+          border-bottom: solid 1px #CCC;
+          padding:6px;
+          width:488;
+        }
+        li em {
+          font-size:75%;
+        }
+        #messageList li.host strong,
+        #messageList li.host em {
+            color: #29642a;
+        }
+        #messageList li.student strong,
+        #messageList li.student em {
+            color: #0040D0;
+        }
+        #messageList {
+          width:520px;
+        }
+    </style>
+</head><body><div id="messageList"><ul style="list-style:none;margin:0px;padding:0px;width:650px;">';
     var messages = Messages.find({roomId:roomId});
     messages.forEach(function(message) {
         if (message.content) {
             html += '<li class="' + message.role + '" style="border-bottom:1px solid #CCC;padding:4px;">';
             if (message.role == 'host') {
                 html += '<span style="color: #29642a;">';
+            } else {
+                html += '<span style="color: #0040D0;">';
             }
             html += '<strong>' + message.user + '</strong> <em>(' + message.timestamp + ')</em></span>: ' + message.content + '</li>';
         }
     });
 
-    html += '</ul></div>';
+    html += '</ul></div></body></html>';
 
     return html;
 }
