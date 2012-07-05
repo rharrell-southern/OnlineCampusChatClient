@@ -79,7 +79,7 @@ h1,h2{
     background-color: #FFF;
 }
 #messageList li.archived {
-    opacity: 35%;
+    opacity: 0.35;
 }
 #messageList li.host strong,
 #messageList li.host em {
