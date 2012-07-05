@@ -49,7 +49,7 @@ Meteor.methods({
             var transport = nodemailer.createTransport("SMTP", {
                 host: "smtp.southern.edu", // hostname
                 secureConnection: true, // use SSL
-                port: 465, // port for secure SMTP
+                port: 587, // port for secure SMTP
                 auth: emailUserInfo,
                 debug: true
             });
