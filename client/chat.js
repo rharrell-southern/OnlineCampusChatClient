@@ -76,7 +76,7 @@ Template.ChatBody.subscribe = function() {
 }
 
 Template.MessageList.messages = function() {
-    return Messages.find({sort:{_id:1});
+    return Messages.find({sort:{_id:1}});
 };
 
 Template.AddMessage.events = {
