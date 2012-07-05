@@ -48,7 +48,7 @@ Meteor.methods({
         var chatTranscript = generateHTMLChat(roomId);
             var transport = nodemailer.createTransport("SMTP", {
                 host: "smtp.southern.edu", // hostname
-                secureConnection: true, // use SSL
+                //secureConnection: true, // use SSL
                 port: 587, // port for secure SMTP
                 auth: emailUserInfo,
                 debug: true
