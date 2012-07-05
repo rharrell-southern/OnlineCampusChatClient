@@ -75,27 +75,27 @@ Meteor.methods({
 
 var generateHTMLChat = function(roomId) {
     var html = '<html><head><style>';
-        html += '#messageList { width:650px; font-family:font-family:"Geneva",sans-serif; font-size:13px; }';
-        html += '#messageList ul { list-style: none; margin: 0px; padding: 0px; width:650px; }';
-        html += '#messageList li { border-bottom:1px solid #CCC; padding:6px; }';
-        html += '#messageList li em { font-size:75%; }'
-        html += '#messageList li.host strong, #messageList li.host em { color: #29642a; }';
-        html += '#messageList li.student strong, #messageList li.student em { color: #0040D0; }';
-    html += '</style></head><body><div id="messageList"><ul style="list-style:none;margin:0px;padding:0px;width:650px;">';
+        html += '#messageList { width:650px; font-family:Geneva,sans-serif; font-size:13px; }';
+        html += '#messageList table { margin: 0px; width:650px; }';
+        html += '#messageList td { border-bottom:1px solid #CCC; padding:6px; }';
+        html += '#messageList em { font-size:75%; }'
+        html += '#messageList td.host strong, #messageList td.host em { color: #29642a; }';
+        html += '#messageList td.student strong, #messageList td.student em { color: #0040D0; }';
+    html += '</style></head><body><div id="messageList"><table width="650" cellpadding="6" halign="center" style="margin:0px;width:650px;">';
     var messages = Messages.find({roomId:roomId});
     messages.forEach(function(message) {
         if (message.content) {
-            html += '<li class="' + message.role + '" style="border-bottom:1px solid #CCC;padding:4px;">';
+            html += '<tr><td class="' + message.role + '" style="border-bottom:1px solid #CCC;padding:4px;">';
             if (message.role == 'host') {
                 html += '<span style="color: #29642a;">';
             } else {
                 html += '<span style="color: #0040D0;">';
             }
-            html += '<strong>' + message.user + '</strong> <em>(' + message.timestamp + ')</em></span>: ' + message.content + '</li>';
+            html += '<strong>' + message.user + '</strong> <em>(' + message.timestamp + ')</em></span>: ' + message.content + '</td></tr>';
         }
     });
 
-    html += '</ul></div></body></html>';
+    html += '</table></div></body></html>';
 
     return html;
 }
