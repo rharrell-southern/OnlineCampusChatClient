@@ -55,7 +55,7 @@ Meteor.methods({
             });
 
             var mailOptions = {
-                from: "online@southern.edu",
+                from: "rharrell@southern.edu",
                 to: email,
                 subject: "Online Campus Suport - Chat Transcript",
                 generateTextFromHTML: true,
