@@ -67,9 +67,12 @@ Meteor.methods({
                     console.log("Error emailing! \n" + error);
                 } else {
                     console.log('Email response successfull!  Response was: ' + result +'\nEmail to: ' + email + '\nEmail text: \n' + chatTranscript);
+                    Fiber(function(){
+                        Messages.update({roomId:roomId,archived:null},{$set: {archived:true}});
+                    }).run();
+                    return "Email Sent!\nPlease check your southern email account.";
                 }
             });
-            return "Email Sending..."
     }
 });
 
@@ -82,7 +85,7 @@ var generateHTMLChat = function(roomId) {
         html += '#messageList td.host strong, #messageList td.host em { color: #29642a; }';
         html += '#messageList td.student strong, #messageList td.student em { color: #0040D0; }';
     html += '</style></head><body><div id="messageList"><table width="650" cellpadding="4" halign="center" style="margin:0px;width:650px;font-size:14px; font-family:Geneva,sans-serif">';
-    var messages = Messages.find({roomId:roomId});
+    var messages = Messages.find({roomId:roomId,archived:null});
     messages.forEach(function(message) {
         if (message.content) {
             html += '<tr><td class="' + message.role + '" style="border-bottom:1px solid #CCC;padding:4px;">';
