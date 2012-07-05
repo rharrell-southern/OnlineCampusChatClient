@@ -91,6 +91,9 @@ button.close {
     color:#FFF !important;
     border-radius:6px;
 }
+#studentButtons {
+    float:right;
+}
 #studentChat h3,
 .modal-header h3 {
     float:left;
