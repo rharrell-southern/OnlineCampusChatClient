@@ -9,9 +9,8 @@ Meteor.methods({
             Fiber(function(){
                 Rooms.insert({userId:name,moodleClass:moodleClass,active:true,unread:0,host:null,typing:whoTyping},function(error,result){  
                     var d = new Date();
-                    var time = d.getTime();
                     var date = d.toDateString() + " " + d.toLocaleTimeString();  
-                    Messages.insert({roomId: result ,content: 'Thank you for accessing Southern Adventist University Online Campus Support, someone will be with you shortly.  You may begin by entering any questions here and our support staff will see them when they join you.', user: 'Online Support',role:'welcome',time:0,date:date});
+                    Messages.insert({roomId: result ,content: 'Thank you for accessing Southern Adventist University Online Campus Support, someone will be with you shortly.  You may begin by entering any questions here and our support staff will see them when they join you.', user: 'Online Support',role:'welcome',messagetime:0,date:date});
                 });
             }).run();
         } else {

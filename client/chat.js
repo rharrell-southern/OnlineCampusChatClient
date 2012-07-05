@@ -25,11 +25,11 @@ function submitChat() {
     var roomId = Session.get('roomId');
     var content = $('#input').val();
     var d = new Date();
-    var time = d.getTime();
+    var messagetime = d.getTime();
     var date = d.toDateString() + " " + d.toLocaleTimeString();
     if(content.length > 0)
     {
-        Messages.insert({roomId: roomId , content: content, user: getUser(),role:role,time:time ,date:date,archived:null});
+        Messages.insert({roomId: roomId , content: content, user: getUser(),role:role,messagetime:messagetime ,date:date,archived:null});
         if(role == 'host') {
             Rooms.update({_id:roomId},{$set: { unread:0 }},function(){
                 Session.set( roomId +'UnreadCount', 0);
@@ -77,7 +77,7 @@ Template.ChatBody.subscribe = function() {
 }
 
 Template.MessageList.messages = function() {
-    return Messages.find({},{sort:{time:1}});
+    return Messages.find({},{sort:{messagetime:1}});
 };
 
 Template.AddMessage.events = {
