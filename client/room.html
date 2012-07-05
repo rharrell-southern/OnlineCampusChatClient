@@ -1,0 +1,31 @@
+<template name="RoomList">
+    {{#if isLoggedIn}}
+       <div id="roomList">
+            <ul>
+                <li class="roomList header"><span class="user">User</span><span class="classroom">Source Classroom</span></li>
+                {{#each rooms filter}}
+                    <li id="{{_id}}" class="room {{active}}"><span class="user">{{userId}}</span> <span class="classroom">{{moodleClass}}</span>  {{#unless active}} (inactive) {{/unless}}
+                    {{#hasUnread _id}}{{/hasUnread}}</li>
+                {{/each}}
+            </ul>
+       </div>
+    {{/if}}
+</template>
+<template name="chatModal">
+    <div class="modal" id="chatModal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">X</button>
+                <h3 style="font-weight:normal">{{> chatHeader}}
+                </h3>
+            </div>
+            <div class="modal-body">
+                {{>ChatBody}}
+            </div>
+    </div>
+</template>
+<template name="chatHeader">
+    Chatting with <strong>{{#studentUserId roomId}}{{/studentUserId}} </strong> - <em>{{#studentMoodleClass roomId}}{{/studentMoodleClass}}</em> {{#hasUnread roomId}}{{/hasUnread}}
+    {{#if StudentIsTyping roomId}}
+        <br /><span class="typingInfo">{{#studentUserId roomId}}{{/studentUserId}} is typing...</span>
+    {{/if}}
+</template>

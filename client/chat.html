@@ -1,0 +1,94 @@
+<body>
+{{>auth}}
+</body>
+
+<template name="auth">
+
+    {{#if isHost}}
+        {{#if isLoggedIn}}
+           <div id="admin_area">
+                <a id="googleAuth" class="btn-auth btn-google">Logout</a>
+               <a id="showHideInactive" class="btn btn-primary">Hide Inactive</a>
+                {{> filterForm}}
+                {{> RoomList}}
+           </div>
+           {{> chatModal}}
+        {{else}}
+            <div id="googleLogin">
+                <h2>Login</h2>
+                Please log in to your Host Account.<br />
+                <a id="googleAuth" class="btn-auth btn-google">Sign in with <b>Google</b></a>
+            </div>
+        {{/if}}
+    {{else}}
+        <div id="studentContent"></div>
+    {{/if}}
+</template>
+<template name="notVerified">
+    <div id="noHosts" class="notVerified">
+        <h2>Sorry :(</h2> Your location has not been verified, please log in to moodle and access the chat from the link in your course.
+    </div>
+</template>
+<template name="Verified">
+    {{#if hostsOnline}}
+        <div id="studentChat" class="verified">
+            {{> StudentChatInfo}}
+            {{> ChatBody}}
+        </div>
+    {{else}}
+        <div id="noHosts" class="verified">
+            Sorry, there are currently no support staff available to assist you.  Please wait for a host to come online or try again later.
+        </div>
+    {{/if}}
+</template>
+
+<template name = "ChatBody">
+
+    {{#if isLoggedIn}}
+        <div id = "messageList">
+            {{> MessageList}}
+        </div>
+        <div id ="addMessage">
+            {{> AddMessage}}
+        </div>
+    {{/if}}
+
+</template>
+
+<template name = "MessageList">
+    <ul>
+     {{#each messages}}
+        <li class="{{role}}"><strong>{{user}}</strong> <em>({{timestamp}})</em>: {{content}}</li>
+        {{#if scrollDown}}{{/if}}
+     {{/each}}
+    </ul>
+</template>
+
+<template name = "AddMessage">
+    <form id="chat">
+        <textarea id="input" type="text"/></textarea>
+        <input id = "sendMessage" class ="btn btn-primary" type="submit" value="Send Message"/>
+    </form>
+</template>
+
+<template name ="StudentChatInfo">
+    {{#if hasHost roomId}}
+        <h3>Chatting With: <strong>{{#hasHost roomId}}{{/hasHost}}</strong><br />
+        {{#if HostIsTyping roomId}}
+            <span class="typingInfo">{{#hasHost roomId}}{{/hasHost}} is typing...</span>
+        {{/if}}</h3>
+    {{else}}
+        <h3>Waiting for support to join...</h3>
+    {{/if}}
+</template>
+
+<template name="filterForm">
+    <form id="filterForm">
+        <strong>Filter Rooms:</strong> 
+        <label for="fieldName">Field:</label> <select id="fieldName">
+            <option value="userId">User Name</option>
+            <option value="moodleClass">Classroom</option>
+        </select>
+        <label for="fieldValue">Value:</label> <input type="text" name="fieldValue" id="fieldValue" class="value" />
+    </form>
+</template>
