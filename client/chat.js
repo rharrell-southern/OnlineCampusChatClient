@@ -140,7 +140,15 @@ Template.auth.isHost = function () {
 Template.StudentChatInfo.roomId = function() {
     return Session.get('roomId');
 }
-
+Template.auth.events = {
+    'click #archiveEmail': function (){
+        Meteor.call('emailHistory', email, Session.get('roomId'), function(error, result){
+            alert(result);
+        });
+    },
+    'click #archiveHide': function (){
+    }
+}
 Meteor.startup(function(){
     if (role == "student") {
         var sip = null;
