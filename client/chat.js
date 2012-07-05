@@ -103,6 +103,7 @@ Template.AddMessage.events = {
 
 Template.auth.events = {
     'click #googleAuth': function (){
+        alert("Clicked!")
         if(Meteor.user()) {
             var hostId = Hosts.findOne({email:Meteor.user().emails[0]});
             Meteor.logout(function (){
