@@ -69,6 +69,7 @@ Meteor.methods({
                     console.log('Email response successfull!  Response was: ' + result +'\nEmail to: ' + email + '\nEmail text: \n' + chatTranscript);
                 }
             });
+            return "Email Sending..."
     }
 });
 
