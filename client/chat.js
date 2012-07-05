@@ -54,9 +54,11 @@ function getUser(){
         return Meteor.user().name;
     }
 }
+
 function getStudent() {
     return id;
 }
+
 function playUnreadSound (roomId, unread) {
     if (!Session.get(roomId+'UnreadCount')) {
         Session.set(roomId+'UnreadCount', 0);
@@ -138,6 +140,7 @@ Template.auth.isHost = function () {
 Template.StudentChatInfo.roomId = function() {
     return Session.get('roomId');
 }
+
 Meteor.startup(function(){
     if (role == "student") {
         var sip = null;
