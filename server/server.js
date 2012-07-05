@@ -46,9 +46,11 @@ Meteor.methods({
     },
     'emailHistory': function (email,roomId) {
         var chatTranscript = generateHTMLChat(roomId);
-            var transport = nodemailer.createTransport("sendmail", {
-                path: "/usr/sbin/sendmail",
-                args: ["-f online@southern.edu"]
+            var transport = nodemailer.createTransport("SMTP", {
+                host: "smtp.southern.edu", // hostname
+                secureConnection: true, // use SSL
+                port: 465, // port for secure SMTP
+                auth: emailUserInfo
             });
 
             var mailOptions = {
@@ -58,14 +60,12 @@ Meteor.methods({
                 generateTextFromHTML: true,
                 html: chatTranscript
             }
-            console.log(mailOptions);
-            console.log(chatTranscript);
             
             transport.sendMail(mailOptions, function(error,result){
                 if (error) {
-                    return 'Error sending email!  Error was: ' + error;
+                    console.log("Error emailing! \n" + error);
                 } else {
-                    return 'Email response successfull!  Response was: ' + result +'\nEmail to: ' + email + '\nEmail text: \n' + chatTranscript;
+                    console.log('Email response successfull!  Response was: ' + result +'\nEmail to: ' + email + '\nEmail text: \n' + chatTranscript);
                 }
             });
     }
