@@ -50,7 +50,8 @@ Meteor.methods({
                 host: "smtp.southern.edu", // hostname
                 secureConnection: true, // use SSL
                 port: 465, // port for secure SMTP
-                auth: emailUserInfo
+                auth: emailUserInfo,
+                debug: true
             });
 
             var mailOptions = {
