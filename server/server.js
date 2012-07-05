@@ -61,18 +61,11 @@ Meteor.methods({
                 generateTextFromHTML: true,
                 html: chatTranscript
             }
-            
-            transport.sendMail(mailOptions, function(error,result){
-                if (error) {
-                    console.log("Error emailing! \n" + error);
-                } else {
-                    console.log('Email response successfull!  Response was: ' + result +'\nEmail to: ' + email + '\nEmail text: \n' + chatTranscript);
-                    Fiber(function(){
-                        Messages.update({roomId:roomId,archived:null},{$set: {archived:true}});
-                    }).run();
-                    return "Email Sent!\nPlease check your southern email account.";
-                }
-            });
+            transport.sendMail(mailOptions);
+            Fiber(function(){
+                Messages.update({roomId:roomId,archived:null},{$set: {archived:true}});
+            }).run();
+            return "Email Sent!\nPlease check your southern email account.";
     }
 });
 
