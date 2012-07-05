@@ -8,7 +8,6 @@ var pop = new Audio("pop.wav");
 
 Meteor.subscribe('rooms');
 Meteor.subscribe('hosts');
-alert("test");
 
 function isTyping(typing) {
     var whoTyping = {};
