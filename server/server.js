@@ -51,7 +51,7 @@ Meteor.methods({
                 //secureConnection: true, // use SSL
                 port: 587, // port for secure SMTP
                 auth: emailUserInfo,
-                debug: true
+                debug: false
             });
 
             var mailOptions = {
@@ -75,7 +75,7 @@ Meteor.methods({
 
 var generateHTMLChat = function(roomId) {
     var html = '<div id="emailBody"><ul style="list-style:none;margin:0px;padding:0px;width:650px;">';
-    var messages = Messages.find({roomId:roomId,archived:null});
+    var messages = Messages.find({roomId:roomId});
     for(message in messages) {
         html += '<li class="' + message.role + '" style="border-bottom:1px solid #CCC;padding:4px;">';
         if (message.role == 'host') {
