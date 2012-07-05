@@ -74,7 +74,7 @@ Meteor.methods({
 });
 
 var generateHTMLChat = function(roomId) {
-    var html = "
+    var html = '
     <style>
         ul {
           list-style: none;
@@ -101,7 +101,7 @@ var generateHTMLChat = function(roomId) {
         #messageList {
           width:520px;
         }
-    </style><div id=\"messageList\"><ul style=\"list-style:none;margin:0px;padding:0px;width:650px;\">";
+    </style><div id="messageList"><ul style="list-style:none;margin:0px;padding:0px;width:650px;">';
     var messages = Messages.find({roomId:roomId});
     messages.forEach(function(message) {
         if (message.content) {
