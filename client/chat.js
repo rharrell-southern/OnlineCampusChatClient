@@ -31,9 +31,7 @@ function submitChat() {
     {
         Messages.insert({roomId: roomId , content: content, user: getUser(),role:role,messagetime:messagetime ,date:date,archived:null});
         if(role == 'host') {
-            Rooms.update({_id:roomId},{$set: { unread:0 }},function(){
-                Session.set( roomId +'UnreadCount', 0);
-            });
+            Rooms.update({_id:roomId},{$set: { unread:0 }});
         } else if (role == 'student') {
             var data = Rooms.findOne({_id:roomId});
             if(data) {
