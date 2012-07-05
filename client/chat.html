@@ -58,7 +58,7 @@
 <template name = "MessageList">
     <ul>
      {{#each messages}}
-        <li class="{{role}}"><strong>{{user}}</strong> <em>({{timestamp}})</em>: {{content}}</li>
+        <li class="{{role}} {{#if archived}}archived{{/if}}"><strong>{{user}}</strong> <em>({{timestamp}})</em>: {{content}}</li>
         {{#if scrollDown}}{{/if}}
      {{/each}}
     </ul>
