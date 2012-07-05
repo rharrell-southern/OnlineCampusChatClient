@@ -99,6 +99,7 @@ var generateHTMLChat = function(roomId) {
 }
 
 Meteor.startup(function(){
+    console.log('Restarted Meteor Server');
     Meteor.setInterval(function () {
         var now = (new Date()).getTime();
         var deadConnections = Connections.find({last_active: {$lt: (now - 7 * 1000)}});
