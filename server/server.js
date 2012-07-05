@@ -46,7 +46,6 @@ Meteor.methods({
     },
     'emailHistory': function (email,roomId) {
         var chatTranscript = generateHTMLChat(roomId);
-        Fiber(function(){
             var transport = nodemailer.createTransport("sendmail", {
                 path: "/usr/local/bin/sendmail",
                 args: ["-f online@southern.edu"]
@@ -70,7 +69,6 @@ Meteor.methods({
                     return 'Email response successfull!  Response was: ' + result +'\nEmail to: ' + email + '\nEmail text: \n' + chatTranscript;
                 }
             });*/
-        }).run();
     }
 });
 
