@@ -75,21 +75,23 @@ Meteor.methods({
 
 var generateHTMLChat = function(roomId) {
     var html = '<html><head><style>';
-        html += '#messageList { width:650px; font-family:Geneva,sans-serif; font-size:13px; }';
+        html += '#messageList { width:650px; font-family:"Geneva",sans-serif; font-size:14px; }';
         html += '#messageList table { margin: 0px; width:650px; }';
-        html += '#messageList td { border-bottom:1px solid #CCC; padding:6px; }';
+        html += '#messageList td { border-bottom:1px solid #CCC; padding:4px; }';
         html += '#messageList em { font-size:75%; }'
         html += '#messageList td.host strong, #messageList td.host em { color: #29642a; }';
         html += '#messageList td.student strong, #messageList td.student em { color: #0040D0; }';
-    html += '</style></head><body><div id="messageList"><table width="650" cellpadding="6" halign="center" style="margin:0px;width:650px;">';
+    html += '</style></head><body><div id="messageList"><table width="650" cellpadding="4" halign="center" style="margin:0px;width:650px;font-size:14px; font-family:Geneva,sans-serif">';
     var messages = Messages.find({roomId:roomId});
     messages.forEach(function(message) {
         if (message.content) {
             html += '<tr><td class="' + message.role + '" style="border-bottom:1px solid #CCC;padding:4px;">';
             if (message.role == 'host') {
                 html += '<span style="color: #29642a;">';
-            } else {
+            } else if (message.role == 'student'){
                 html += '<span style="color: #0040D0;">';
+            } else {
+                html += '<span>';
             }
             html += '<strong>' + message.user + '</strong> <em>(' + message.timestamp + ')</em></span>: ' + message.content + '</td></tr>';
         }
