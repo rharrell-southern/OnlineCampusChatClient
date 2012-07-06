@@ -59,16 +59,6 @@ function getStudent() {
     return id;
 }
 
-function playUnreadSound (roomId, unread) {
-    if (!Session.get(roomId+'UnreadCount')) {
-        Session.set(roomId+'UnreadCount', 0);
-    }
-    if (unread > Session.get(roomId+'UnreadCount')) {
-        pop.play();
-        Session.set(roomId+'UnreadCount', unread);
-    }
-}
-
 Template.ChatBody.subscribe = function() {
     Meteor.autosubscribe(function(){
         Meteor.subscribe("messages", Session.get('roomId'));
@@ -124,6 +114,9 @@ Template.auth.events = {
                   changed: function (item,index,oldItem) {
                     if(item.active  && !oldItem.active) {
                         ring.play();
+                    }
+                    if(item.unread > oldItem.unread) {
+                        pop.play();
                     }
                   }
                 });
