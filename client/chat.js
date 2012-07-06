@@ -108,13 +108,19 @@ Template.auth.events = {
                 var handle = query.observe({
                   added: function (item) {
                     if(item.active) {
+<<<<<<< HEAD
                         console.log("ring! ring!");
+=======
+>>>>>>> Update
                         ring.play();
                     }
                   },
                   changed: function (item,index,oldItem) {
                     if(item.active  && !oldItem.active) {
+<<<<<<< HEAD
                         console.log("ring! ring!");
+=======
+>>>>>>> Update
                         ring.play();
                     }
                   }
