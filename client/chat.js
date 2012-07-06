@@ -113,6 +113,23 @@ Template.auth.events = {
                 if(host === undefined) {
                     Hosts.insert({host:Meteor.user().name,email:Meteor.user().emails[0]});
                 }
+
+                var query = Rooms.find();
+                var handle = query.observe({
+                  added: function (item) {
+                    if(item.active) {
+                        console.log("ring! ring!");
+                        ring.play();
+                    }
+                  },
+                  changed: function (item,index,oldItem) {
+                    if(item.active  && !oldItem.active) {
+                        console.log("ring! ring!");
+                        ring.play();
+                    }
+                  }
+                });
+
             });
         }
     },
@@ -182,22 +199,6 @@ Meteor.startup(function(){
                     }
                 });
             }
-        });
-    } else if (role == "host") {
-        var query = Rooms.find();
-        var handle = query.observe({
-          added: function (item) {
-            if(item.active) {
-                console.log("ring! ring!");
-                ring.play();
-            }
-          },
-          changed: function (item,index,oldItem) {
-            if(item.active  && !oldItem.active) {
-                console.log("ring! ring!");
-                ring.play();
-            }
-          }
         });
     }
 });
