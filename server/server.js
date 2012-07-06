@@ -63,7 +63,10 @@ Meteor.methods({
             }
             transport.sendMail(mailOptions);
             Fiber(function(){
-                Messages.update({roomId:roomId},{$set: {archived:true}});
+                var messages = Messages.find({roomId:roomId,archived:null});
+                messages.forEach(function(message) {
+                    Messages.update({_Id:message._Id},{$set: {archived:true}});
+                }
             }).run();
             return "Email Sent!\nPlease check your southern email account.";
     }
