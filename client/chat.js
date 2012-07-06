@@ -193,8 +193,8 @@ Meteor.startup(function(){
                 ring.play();
             }
           },
-          changed: function (item) {
-            if(item.active == true) {
+          changed: function (item,index,oldItem) {
+            if(item.active == true  && oldItem.active == 'false') {
                 console.log("ring! ring!");
                 ring.play();
             }
