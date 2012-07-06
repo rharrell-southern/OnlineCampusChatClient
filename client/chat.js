@@ -187,17 +187,20 @@ Meteor.startup(function(){
         });
     } else if (role == "host") {
         var query = Rooms.find();
+        console.log('Starting Observation');
         var handle = query.observe({
           added: function (item) {
             if(item.active == true) {
+                console.log("ring! ring!");
                 ring.play();
             }
           },
           changed: function (item) {
             if(item.active == true) {
+                console.log("ring! ring!");
                 ring.play();
             }
           }
-});
+        });
     }
 });
