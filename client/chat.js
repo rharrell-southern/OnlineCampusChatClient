@@ -133,6 +133,13 @@ Template.auth.events = {
         });
     },
     'click #archiveHide': function (){
+        if($('#css').html()) {
+            $('#css').html('');
+            $('#archiveHide').html('Hide Archived');
+        } else {
+            $('#css').html('<style>.archived { display:none !important; }</style>');
+            $('#archiveHide').html('Show Archived');
+        }
     }
 };
 
