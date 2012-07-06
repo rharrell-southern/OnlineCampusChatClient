@@ -188,7 +188,7 @@ Meteor.startup(function(){
         console.log('Starting Observation');
         var handle = query.observe({
           added: function (item) {
-            if(item.active == true) {
+            if(item.active) {
                 console.log("ring! ring!");
                 ring.play();
             }
