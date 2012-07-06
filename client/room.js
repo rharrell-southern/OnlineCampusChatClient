@@ -34,6 +34,7 @@ Template.filterForm.events = {
         var filterValue = $('#fieldValue').val();
         Session.set('filterName', filterField);
         Session.set('filterValue',filterValue);
+        $('#showHideInactive').html('Hide Inactive');
     },
     'submit': function (event) {
         event.preventDefault();
