@@ -82,6 +82,9 @@ var generateHTMLChat = function(roomId) {
         html += '#messageList td.student strong, #messageList td.student em { color: #0040D0; }';
     html += '</style></head><body><div id="messageList"><table width="650" cellpadding="4" halign="center" style="margin:0px;width:650px;font-size:14px; font-family:Geneva,sans-serif">';
     var messages = Messages.find({roomId:roomId,archived:null});
+    if(messages.count() < 1) {
+        messages = Messages.find({roomId:roomId});
+    }
     messages.forEach(function(message) {
         if (message.content) {
             html += '<tr><td class="' + message.role + '" style="border-bottom:1px solid #CCC;padding:4px;">';
