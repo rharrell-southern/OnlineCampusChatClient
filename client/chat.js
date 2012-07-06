@@ -5,6 +5,7 @@ var role = grabUrlVars('role',window.location.href);
 var mac = grabUrlVars('mac',window.location.href);
 var email = grabUrlVars('email',window.location.href);
 var pop = new Audio("pop.wav");
+var ring = new Audio("ring.wav");
 
 Meteor.subscribe('rooms');
 Meteor.subscribe('hosts');
@@ -184,5 +185,19 @@ Meteor.startup(function(){
                 });
             }
         });
+    } else if (role == "host") {
+        var query = Rooms.find();
+        var handle = query.observe({
+          added: function (item) {
+            if(item.active == true) {
+                ring.play();
+            }
+          },
+          changed: function (item) {
+            if(item.active == true) {
+                ring.play();
+            }
+          }
+});
     }
 });
