@@ -185,7 +185,6 @@ Meteor.startup(function(){
         });
     } else if (role == "host") {
         var query = Rooms.find();
-        console.log('Starting Observation');
         var handle = query.observe({
           added: function (item) {
             if(item.active) {
@@ -194,7 +193,6 @@ Meteor.startup(function(){
             }
           },
           changed: function (item,index,oldItem) {
-            console.log("Old: " + oldItem.active + " New: " + item.active);
             if(item.active  && !oldItem.active) {
                 console.log("ring! ring!");
                 ring.play();
