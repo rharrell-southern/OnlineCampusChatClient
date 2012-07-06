@@ -7,7 +7,7 @@ Handlebars.registerHelper('hasUnread',function(roomId){
   if(rooms) {
       var unread = rooms.unread
       if (unread > 0) {
-          playUnreadSound(roomId, unread);
+          pop.play();
           var html = "<em><strong>(" + unread + ")</strong></em>";
       }
       return html;

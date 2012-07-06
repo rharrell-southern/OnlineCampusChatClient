@@ -59,16 +59,6 @@ function getStudent() {
     return id;
 }
 
-function playUnreadSound (roomId, unread) {
-    if (!Session.get(roomId+'UnreadCount')) {
-        Session.set(roomId+'UnreadCount', 0);
-    }
-    if (unread > Session.get(roomId+'UnreadCount')) {
-        pop.play();
-        Session.set(roomId+'UnreadCount', unread);
-    }
-}
-
 Template.ChatBody.subscribe = function() {
     Meteor.autosubscribe(function(){
         Meteor.subscribe("messages", Session.get('roomId'));
