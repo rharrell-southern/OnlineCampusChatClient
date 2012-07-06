@@ -89,7 +89,7 @@ var generateHTMLChat = function(roomId) {
             } else {
                 html += '<span>';
             }
-            html += '<strong>' + message.user + '</strong> <em>(' + message.timestamp + ')</em></span>: ' + message.content + '</td></tr>';
+            html += '<strong>' + message.user + '</strong> <em>(' + message.date + ')</em></span>: ' + message.content + '</td></tr>';
         }
     });
 
