@@ -8,7 +8,7 @@ Meteor.publish('messages', function (id) {
 
     return Messages.find({roomId:id});
 });
-Meteor.publish('privateMessages',function(id)) {
+Meteor.publish('privateMessages',function(id) {
 	Fiber(function(){
     	return Messages.find({roomId:id});
 	}).run();
