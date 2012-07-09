@@ -3,9 +3,13 @@
         <div id="hostList">
             <ul>
                 <li class="hostList header">Hosts Online</li>
-                {{#each hosts}}
-                    <li id="{{_id}}" class="host">{{host}}</li>
-                {{/each}}
+                {{#if hostsOnline}}
+                    {{#each hosts}}
+                        <li id="{{_id}}" class="host">{{host}}</li>
+                    {{/each}}
+                {{else}}
+                    <li id="none" class="host">None Online</li>
+                {{/if}}
             </ul>
         </div>
        <div id="roomList">
