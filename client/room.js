@@ -21,7 +21,7 @@ Template.RoomList.events = {
         if ($('#chatModal').css('display') == 'none') {
             console.log($('#hostChatModal').css('display'));
             if ($('#hostChatModal').css('display') == 'block') {
-                $('#chatModal').hide("slide", { direction: "left" }, 300, function(){
+                $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
                     $('#chatModal').show("slide", { direction: "left" }, 500,function(){
                         Meteor.flush();
                         $('#chatModal #messageList').scrollTop(9999999);
