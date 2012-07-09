@@ -20,7 +20,7 @@ Template.RoomList.events = {
         Rooms.update({ _id:this._id},{$set: { host: getUser()}});
         if ($('#chatModal').css('display') == 'none') {
             if ($('#hostChatModal').css('display') != 'none') {
-                $('#chatModal').hide("slide", { direction: "left" }, 600, function(){
+                $('#chatModal').hide("slide", { direction: "left" }, 300, function(){
                     $('#chatModal').show("slide", { direction: "left" }, 500,function(){
                         Meteor.flush();
                         $('#chatModal #messageList').scrollTop(9999999);
@@ -36,7 +36,7 @@ Template.RoomList.events = {
             }
         }
         Meteor.flush();
-        $('#messageList').scrollTop(9999999);
+        $('#chatModal #messageList').scrollTop(9999999);
     }
 }
 
@@ -48,7 +48,7 @@ Template.HostList.events = {
         })
         if ($('#hostChatModal').css('display') == 'none') {
             if ($('#chatModal').css('display') != 'none') {
-                $('#chatModal').hide("slide", { direction: "left" }, 600,function(){
+                $('#chatModal').hide("slide", { direction: "left" }, 300,function(){
                     $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
                         Meteor.flush();
                         $('#hostChatModal #messageList').scrollTop(9999999);
@@ -64,7 +64,7 @@ Template.HostList.events = {
             }
         }
         Meteor.flush();
-        $('#messageList').scrollTop(9999999);
+        $('#hostChatModal #messageList').scrollTop(9999999);
     }
 }
 Template.filterForm.events = {
@@ -83,6 +83,16 @@ Template.filterForm.events = {
 
 Template.chatHeader.roomId = function() {
     return Session.get('roomId');
+}
+
+Template.HostChatInfo.roomId = function() {
+    return Session.get('privateRoomId');
+}
+
+Template.HostChatBody.subscribe = function() {
+    Meteor.autosubscribe(function(){
+        Meteor.subscribe("privateMessages", Session.get('privateRoomId'));
+    });
 }
 
 Template.chatModal.events = {

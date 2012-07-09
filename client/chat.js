@@ -47,7 +47,7 @@ function submitChat() {
 }
 
 function hostSubmitChat() {
-    var roomId = Session.get('roomId');
+    var roomId = Session.get('privateRoomId');
     var content = $('#hostAddMessage #input').val();
     console.log('Input Value: ' + content);
     var d = new Date();
@@ -117,14 +117,12 @@ Template.AddMessage.events = {
 
 Template.HostAddMessage.events = {
     'submit': function (event) {
-        console.log('Clicked Submitted!');
         event.preventDefault();
         hostSubmitChat();
 
     },
     'keypress':function(event){
         if (event.which == '13'){
-            console.log('Hit Enter!');
             event.preventDefault();
             hostSubmitChat();
         }
@@ -204,9 +202,6 @@ Template.auth.isHost = function () {
 
 Template.StudentChatInfo.roomId = function() {
     return Session.get('roomId');
-}
-Template.HostChatInfo.roomId = function() {
-    return Session.get('privateRoomId');
 }
 Meteor.startup(function(){
     if (role == "student") {
