@@ -10,10 +10,11 @@ Template.RoomList.rooms = function (){
 };
 Template.RoomList.events = {
     'click ul li.room': function(event){
+        $('#messageList').fadeOut('fast');
         Session.set('roomId',this._id)
         Meteor.autosubscribe(function(){
             Meteor.subscribe("messages", Session.get('roomId'));
-        })
+        });
         Rooms.update({ _id:this._id},{$set: { host: getUser()}});
         if ($('#chatModal').css('display') == 'none') {
             console.log($('#hostChatModal').css('display'));
@@ -35,15 +36,17 @@ Template.RoomList.events = {
         }
         Meteor.flush();
         $('#chatModal #messageList').scrollTop(9999999);
+        $('#messageList').fadeIn('fast');
     }
 }
 
 Template.HostList.events = {
     'click ul li.host': function(event){
+        $('#messageList').fadeOut('fast');
         Session.set('roomId',this._id);
         Meteor.autosubscribe(function(){
             Meteor.subscribe("messages", Session.get('roomId'));
-        })
+        });
         if ($('#hostChatModal').css('display') == 'none') {
             console.log($('#chatModal').css('display'));
             if ($('#chatModal').css('display') == 'block') {
@@ -64,6 +67,7 @@ Template.HostList.events = {
         }
         Meteor.flush();
         $('#hostChatModal #messageList').scrollTop(9999999);
+        $('#messageList').fadeIn('fast');
     }
 }
 Template.filterForm.events = {
