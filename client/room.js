@@ -10,10 +10,13 @@ Template.RoomList.rooms = function (){
 };
 Template.RoomList.events = {
     'click ul li.room': function(event){
-        $('#chatModal #messageList').fadeOut('fast');
-        Session.set('roomId',this._id)
-        Meteor.autosubscribe(function(){
-            Meteor.subscribe("messages", Session.get('roomId'));
+        $('#chatModal #messageList').fadeOut('fast',function(){
+            Session.set('roomId',this._id)
+            Meteor.autosubscribe(function(){
+                Meteor.subscribe("messages", Session.get('roomId'),function(){  
+                    $('#chatModal #messageList').fadeIn('fast');
+                });
+            });
         });
         Rooms.update({ _id:this._id},{$set: { host: getUser()}});
         if ($('#chatModal').css('display') == 'none') {
@@ -36,16 +39,18 @@ Template.RoomList.events = {
         }
         Meteor.flush();
         $('#chatModal #messageList').scrollTop(9999999);
-        $('#chatModal #messageList').fadeIn('fast');
     }
 }
 
 Template.HostList.events = {
     'click ul li.host': function(event){
-        $('#hostChatModal #messageList').fadeOut('fast');
-        Session.set('roomId',this._id);
-        Meteor.autosubscribe(function(){
-            Meteor.subscribe("messages", Session.get('roomId'));
+        $('#hostChatModal #messageList').fadeOut('fast',function(){   
+            Session.set('roomId',this._id);
+            Meteor.autosubscribe(function(){
+                Meteor.subscribe("messages", Session.get('roomId'),function(){  
+                    $('#hostChatModal #messageList').fadeIn('fast');
+                });
+            });
         });
         if ($('#hostChatModal').css('display') == 'none') {
             console.log($('#chatModal').css('display'));
@@ -67,7 +72,6 @@ Template.HostList.events = {
         }
         Meteor.flush();
         $('#hostChatModal #messageList').scrollTop(9999999);
-        $('#hostChatModal #messageList').fadeIn('fast');
     }
 }
 Template.filterForm.events = {
