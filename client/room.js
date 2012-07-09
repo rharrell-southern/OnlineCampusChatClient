@@ -36,8 +36,8 @@ Template.HostList.events = {
         Meteor.autosubscribe(function(){
             Meteor.subscribe("messages", Session.get('roomId'));
         })
-        if ($('#chatModal').css('display') == 'none') {
-            $('#chatModal').show("slide", { direction: "left" }, 500,function(){
+        if ($('#hostChatModal').css('display') == 'none') {
+            $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
                 Meteor.flush();
                 $('#messageList').scrollTop(9999999);
                 $('#input').focus();

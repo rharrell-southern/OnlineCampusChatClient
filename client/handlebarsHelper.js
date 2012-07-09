@@ -59,6 +59,15 @@ Handlebars.registerHelper('studentUserId', function(roomId) {
   }
 });
 
+Handlebars.registerHelper('hostUserId', function(roomId) {
+  var host = Hosts.findOne({_id:roomId});
+  if (host) {
+    return host.host;
+  } else {
+    return false;
+  }
+});
+
 Handlebars.registerHelper('studentMoodleClass',function(roomId) {
   var room = Rooms.findOne({_id:roomId});
   if (room) {

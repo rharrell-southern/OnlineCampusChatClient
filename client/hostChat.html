@@ -1,0 +1,51 @@
+<template name="HostList">
+    <div id="hostList">
+        <ul>
+            <li class="hostList header">Hosts Online</li>
+            {{#if hostsOnline}}
+                {{#each hosts}}
+                    <li id="{{_id}}" class="host">{{host}}</li>
+                {{/each}}
+            {{else}}
+                <li id="none" class="host">None Online</li>
+            {{/if}}
+        </ul>
+    </div>
+</template>
+<template name="hostChatModal">
+    <div class="modal" id="chatModal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">X</button>
+                <h3 style="font-weight:normal">{{> HostChatInfo}}
+                </h3>
+            </div>
+            <div class="modal-body">
+                {{> HostChatBody}}
+            </div>
+    </div>
+</template>
+<template name ="HostChatInfo">
+    Chatting with <strong>{{#hostUserId roomId}}{{/hostUserId}} </strong> {{#hasUnread roomId}}{{/hasUnread}}
+    {{#if StudentIsTyping roomId}}
+        <br /><span class="typingInfo">{{#hostUserId roomId}}{{/hostUserId}} is typing...</span>
+    {{/if}}
+</template>
+<template name = "HostChatBody">
+
+    {{#if isLoggedIn}}
+        <div id = "messageList">
+            {{> MessageList}}
+        </div>
+        <div id ="HostAddMessage">
+            {{> AddMessage}}
+        </div>
+    {{/if}}
+
+</template>
+
+<template name = "HostAddMessage">
+    <form id="hostChatMessage">
+        <textarea id="input" type="text"/></textarea>
+        <input id = "sendMessage" class ="btn btn-primary" type="submit" value="Send Message"/>
+    </form>
+</template>

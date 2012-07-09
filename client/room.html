@@ -30,17 +30,3 @@
         <br /><span class="typingInfo">{{#studentUserId roomId}}{{/studentUserId}} is typing...</span>
     {{/if}}
 </template>
-<template name="HostList">
-    <div id="hostList">
-        <ul>
-            <li class="hostList header">Hosts Online</li>
-            {{#if hostsOnline}}
-                {{#each hosts}}
-                    <li id="{{_id}}" class="host">{{host}}</li>
-                {{/each}}
-            {{else}}
-                <li id="none" class="host">None Online</li>
-            {{/if}}
-        </ul>
-    </div>
-</template>
