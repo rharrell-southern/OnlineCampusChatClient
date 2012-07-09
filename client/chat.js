@@ -47,7 +47,7 @@ function submitChat() {
 }
 
 function hostSubmitChat() {
-    var roomId = Session.get('privateRoomId');
+    var roomId = Session.get('roomId');
     var content = $('#hostAddMessage #input').val();
     console.log('Input Value: ' + content);
     var d = new Date();

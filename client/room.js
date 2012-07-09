@@ -40,9 +40,9 @@ Template.RoomList.events = {
 
 Template.HostList.events = {
     'click ul li.host': function(event){
-        Session.set('privateRoomId',this._id);
+        Session.set('roomId',this._id);
         Meteor.autosubscribe(function(){
-            Meteor.subscribe("messages", Session.get('privateRoomId'));
+            Meteor.subscribe("messages", Session.get('roomId'));
         })
         if ($('#hostChatModal').css('display') == 'none') {
             console.log($('#chatModal').css('display'));
@@ -85,12 +85,12 @@ Template.chatHeader.roomId = function() {
 }
 
 Template.HostChatInfo.roomId = function() {
-    return Session.get('privateRoomId');
+    return Session.get('roomId');
 }
 
 Template.HostChatBody.subscribe = function() {
     Meteor.autosubscribe(function(){
-        Meteor.subscribe("messages", Session.get('privateRoomId'));
+        Meteor.subscribe("messages", Session.get('roomId'));
     });
 }
 
