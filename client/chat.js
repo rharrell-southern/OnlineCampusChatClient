@@ -116,12 +116,14 @@ Template.AddMessage.events = {
 
 Template.HostAddMessage.events = {
     'submit': function (event) {
+        console.log('Clicked Submitted!');
         event.preventDefault();
         hostSubmitChat();
 
     },
     'keypress':function(event){
         if (event.which == '13'){
+            console.log('Hit Enter!');
             event.preventDefault();
             hostSubmitChat();
         }
