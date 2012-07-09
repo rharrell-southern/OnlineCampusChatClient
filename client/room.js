@@ -19,7 +19,8 @@ Template.RoomList.events = {
         })
         Rooms.update({ _id:this._id},{$set: { host: getUser()}});
         if ($('#chatModal').css('display') == 'none') {
-            if ($('#hostChatModal').css('display') != 'none') {
+            console.log($('#hostChatModal').css('display'));
+            if ($('#hostChatModal').css('display') == 'block') {
                 $('#chatModal').hide("slide", { direction: "left" }, 300, function(){
                     $('#chatModal').show("slide", { direction: "left" }, 500,function(){
                         Meteor.flush();
@@ -47,7 +48,8 @@ Template.HostList.events = {
             Meteor.subscribe("privateMessages", Session.get('privateRoomId'));
         })
         if ($('#hostChatModal').css('display') == 'none') {
-            if ($('#chatModal').css('display') != 'none') {
+            console.log($('#chatModal').css('display'));
+            if ($('#chatModal').css('display') == 'block') {
                 $('#chatModal').hide("slide", { direction: "left" }, 300,function(){
                     $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
                         Meteor.flush();
