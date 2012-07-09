@@ -3,23 +3,26 @@ var require = __meteor_bootstrap__.require,
 
 Meteor.methods({
     'roomExists': function (name, moodleClass){
+        var thisRoomId;
         var roomsResult = Rooms.findOne({userId:name, moodleClass:moodleClass});
         var whoTyping = { student:false, host:false };
         if (!roomsResult) {
             Fiber(function(){
                 Rooms.insert({userId:name,moodleClass:moodleClass,active:false,unread:0,host:null,typing:whoTyping},function(error,result){  
+                    thisRoomId = result;
                     var d = new Date();
                     var date = d.toDateString() + " " + d.toLocaleTimeString();  
-                    Messages.insert({roomId: result ,content: 'Thank you for accessing Southern Adventist University Online Campus Support,' + 
+                    Messages.insert({roomId: thisRoomId ,content: 'Thank you for accessing Southern Adventist University Online Campus Support,' + 
                         'someone will be with you shortly.  You may begin by entering any questions here and our support staff will see them' + 
                         'when they join you.', user: 'Online Support',role:'welcome',messagetime:0,date:date});
-                    Rooms.update({_id:result},{$set:{active:true}});});
+                });
             }).run();
         } else {
-            Fiber(function(){
-                Rooms.update({_id:roomsResult._id},{$set: {active:true}});
-            }).run();
+            thisRoomId = roomsResult._id
         }
+        Fiber(function(){
+            Rooms.update({_id:thisRoomId},{$set: {active:true}});
+        }).run();
 
     },
     'getRoomId': function(name,moodleClass){
