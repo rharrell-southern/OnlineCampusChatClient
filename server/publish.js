@@ -2,7 +2,9 @@ Meteor.publish('messages', function (id) {
 
 	this.onStop(function(){
 		Fiber(function(){
-			Rooms.update({ _id:id},{$set: { host: null }});
+			if (Rooms.findOne({_id:id})) {
+				Rooms.update({ _id:id},{$set: { host: null }});
+			}
 		}).run();
 	});
 

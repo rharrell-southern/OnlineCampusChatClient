@@ -8,9 +8,6 @@ Template.RoomList.rooms = function (){
     }
     return Rooms.find(filter,{sort:{active:-1,unread:-1,moodleClass:1,userId:1}});
 };
-Template.HostList.hosts = function (){
-    return Hosts.find({},{sort:{host:1}});
-};
 Template.RoomList.events = {
     'click ul li.room': function(event){
         Session.set('roomId',this._id)
@@ -45,7 +42,7 @@ Template.HostList.events = {
     'click ul li.host': function(event){
         Session.set('privateRoomId',this._id);
         Meteor.autosubscribe(function(){
-            Meteor.subscribe("privateMessages", Session.get('privateRoomId'));
+            Meteor.subscribe("messages", Session.get('privateRoomId'));
         })
         if ($('#hostChatModal').css('display') == 'none') {
             console.log($('#chatModal').css('display'));
@@ -93,9 +90,13 @@ Template.HostChatInfo.roomId = function() {
 
 Template.HostChatBody.subscribe = function() {
     Meteor.autosubscribe(function(){
-        Meteor.subscribe("privateMessages", Session.get('privateRoomId'));
+        Meteor.subscribe("messages", Session.get('privateRoomId'));
     });
 }
+
+Template.HostList.hosts = function (){
+    return Hosts.find({},{sort:{host:1}});
+};
 
 Template.chatModal.events = {
     'click .close': function(event) {
