@@ -173,10 +173,9 @@ button.close {
 #hostList {
     width:180px;
     float:left;
-    height:630px;
     margin-right:25px;
-    border:1px solid #CCC;
     margin-top: 10px;
+    border:1px solid #CCC;
 }
 #hostList li.host {
     cursor:pointer;
