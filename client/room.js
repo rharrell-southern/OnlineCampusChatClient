@@ -11,10 +11,10 @@ Template.RoomList.rooms = function (){
 Template.RoomList.events = {
     'click ul li.room': function(event){
         Session.set('roomId',this._id);
-        $('#chatModal #messageList').fadeOut('fast',function(){
+        $('#chatModal #messageList ul').fadeOut('fast',function(){
             Meteor.autosubscribe(function(){
                 Meteor.subscribe("messages", Session.get('roomId'),function(){  
-                    $('#chatModal #messageList').fadeIn('fast');
+                    $('#chatModal #messageList ul').fadeIn('fast');
                 });
             });
         });
@@ -45,10 +45,10 @@ Template.RoomList.events = {
 Template.HostList.events = {
     'click ul li.host': function(event){
         Session.set('roomId',this._id);
-        $('#hostChatModal #messageList').fadeOut('fast',function(){  
+        $('#hostChatModal #messageList ul').fadeOut('fast',function(){  
             Meteor.autosubscribe(function(){
                 Meteor.subscribe("messages", Session.get('roomId'),function(){  
-                    $('#hostChatModal #messageList').fadeIn('fast');
+                    $('#hostChatModal #messageList ul').fadeIn('fast');
                 });
             });
         });
