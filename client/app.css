@@ -174,7 +174,7 @@ button.close {
     width:180px;
     float:left;
     height:630px;
-    overflow-y:scroll;
+    margin-right:25px;
     border:1px solid #CCC;
     margin-top: 10px;
 }
@@ -182,7 +182,6 @@ button.close {
     cursor:pointer;
 }
 #hostList li.header {
-    background-color:#;
     font-weight: bold;
     background-color: #0074cc;
     background-image: -moz-linear-gradient(top, #0088cc, #0055cc);
