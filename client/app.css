@@ -218,20 +218,22 @@ li em {
   font-size:75%;
 }
 
-#addMessage {
+#addMessage,
+#hostAddMessage {
   margin-top: 10px;
 }
-#addMessage #input{
+#addMessage #input,
+#hostAddMessage #input{
   margin-top:9px;
 }
 
-#sendMessage{
+#sendMessage {
     margin-top: 8px;
     padding:16px;
     font-size: 15px;
 }
 
-#auth{
+#auth {
     margin-left: 390px;
 }
 
