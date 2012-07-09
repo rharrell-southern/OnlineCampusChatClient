@@ -128,9 +128,9 @@ Template.HostAddMessage.events = {
         //isTyping(true);
     },
     'keyup':function(event){
-        Meteor.setTimeout(function(){
-            //isTyping(false);
-        }, 3000);
+       /* Meteor.setTimeout(function(){
+            isTyping(false);
+        }, 3000); */
     }
 
 };
