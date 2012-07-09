@@ -30,6 +30,23 @@ Template.RoomList.events = {
     }
 }
 
+Template.HostList.events = {
+    'click ul li.host': function(event){
+        Session.set('roomId',this._id)
+        Meteor.autosubscribe(function(){
+            Meteor.subscribe("messages", Session.get('roomId'));
+        })
+        if ($('#chatModal').css('display') == 'none') {
+            $('#chatModal').show("slide", { direction: "left" }, 500,function(){
+                Meteor.flush();
+                $('#messageList').scrollTop(9999999);
+                $('#input').focus();
+            })
+        }
+        Meteor.flush();
+        $('#messageList').scrollTop(9999999);
+    }
+}
 Template.filterForm.events = {
     'keyup': function (event) {
         //event.preventDefault();
