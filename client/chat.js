@@ -114,6 +114,27 @@ Template.AddMessage.events = {
 
 };
 
+Template.HostAddMessage.events = {
+    'submit': function (event) {
+        event.preventDefault();
+        hostSubmitChat();
+
+    },
+    'keypress':function(event){
+        if (event.which == '13'){
+            event.preventDefault();
+            submitChat();
+        }
+        //isTyping(true);
+    },
+    'keyup':function(event){
+        Meteor.setTimeout(function(){
+            //isTyping(false);
+        }, 3000);
+    }
+
+};
+
 Template.auth.events = {
     'click #googleAuth': function (){
         if(Meteor.user()) {
@@ -124,6 +145,7 @@ Template.auth.events = {
         } else {
             Meteor.loginWithGoogle(function(){
                 var host = Hosts.findOne({email:Meteor.user().emails[0]});
+                console.log(host);
                 if(host === undefined) {
                     Hosts.insert({host:Meteor.user().name,email:Meteor.user().emails[0]});
                 }
