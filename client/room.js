@@ -8,6 +8,9 @@ Template.RoomList.rooms = function (){
     }
     return Rooms.find(filter,{sort:{active:-1,unread:-1,moodleClass:1,userId:1}});
 };
+Template.RoomList.hosts = function (){
+    return Hosts.find({},{sort:{host:1}});
+};
 Template.RoomList.events = {
     'click ul li.room': function(event){
         Session.set('roomId',this._id)
