@@ -112,7 +112,7 @@ button.close {
     color:#CCC;
 }
 #roomList {
-    width:500px;
+    width:350px;
     height:630px;
     overflow-y:scroll;
     border:1px solid #CCC;
