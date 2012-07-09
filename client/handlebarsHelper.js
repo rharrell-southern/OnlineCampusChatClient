@@ -34,9 +34,9 @@ Handlebars.registerHelper('hasHost',function(roomId) {
   }
 });
 Handlebars.registerHelper('HostIsTyping',function(roomId) {
-  var room = Rooms.findOne({_id:roomId});
-  if (room) {
-    return room.typing['host'];
+  var host = Hosts.findOne({_id:roomId});
+  if (host) {
+    return host.typing['host'];
   } else {
     return false;
   }

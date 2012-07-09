@@ -19,11 +19,21 @@ Template.RoomList.events = {
         })
         Rooms.update({ _id:this._id},{$set: { host: getUser()}});
         if ($('#chatModal').css('display') == 'none') {
-            $('#chatModal').show("slide", { direction: "left" }, 500,function(){
-                Meteor.flush();
-                $('#messageList').scrollTop(9999999);
-                $('#input').focus();
-            })
+            if ($('#hostChatModal').css('display') != 'none') {
+                $('#chatModal').hide("slide", { direction: "left" }, 600, function(){
+                    $('#chatModal').show("slide", { direction: "left" }, 500,function(){
+                        Meteor.flush();
+                        $('#chatModal #messageList').scrollTop(9999999);
+                        $('#chatModal #input').focus();
+                    });
+                });
+            } else {
+                $('#chatModal').show("slide", { direction: "left" }, 500,function(){
+                    Meteor.flush();
+                    $('#chatModal #messageList').scrollTop(9999999);
+                    $('#chatModal #input').focus();
+                });
+            }
         }
         Meteor.flush();
         $('#messageList').scrollTop(9999999);
@@ -32,16 +42,26 @@ Template.RoomList.events = {
 
 Template.HostList.events = {
     'click ul li.host': function(event){
-        Session.set('roomId',this._id)
+        Session.set('privateRoomId',this._id);
         Meteor.autosubscribe(function(){
-            Meteor.subscribe("messages", Session.get('roomId'));
+            Meteor.subscribe("privateMessages", Session.get('privateRoomId'));
         })
         if ($('#hostChatModal').css('display') == 'none') {
-            $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
-                Meteor.flush();
-                $('#messageList').scrollTop(9999999);
-                $('#input').focus();
-            })
+            if ($('#chatModal').css('display') != 'none') {
+                $('#chatModal').hide("slide", { direction: "left" }, 600,function(){
+                    $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
+                        Meteor.flush();
+                        $('#hostChatModal #messageList').scrollTop(9999999);
+                        $('#hostChatModal #input').focus();
+                    });
+                });
+            } else {
+                $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
+                    Meteor.flush();
+                    $('#hostChatModal #messageList').scrollTop(9999999);
+                    $('#hostChatModal #input').focus();
+                });
+            }
         }
         Meteor.flush();
         $('#messageList').scrollTop(9999999);
@@ -69,5 +89,10 @@ Template.chatModal.events = {
     'click .close': function(event) {
         $('#chatModal').hide("slide", { direction: "left" }, 600);
         Rooms.update({ _id:Session.get('roomId')},{$set: { host: null}});
+    }
+}
+Template.hostChatModal.events = {
+    'click .close': function(event) {
+        $('#hostChatModal').hide("slide", { direction: "left" }, 600);
     }
 }

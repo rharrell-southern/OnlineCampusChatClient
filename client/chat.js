@@ -205,6 +205,9 @@ Template.auth.isHost = function () {
 Template.StudentChatInfo.roomId = function() {
     return Session.get('roomId');
 }
+Template.HostChatInfo.roomId = function() {
+    return Session.get('privateRoomId');
+}
 Meteor.startup(function(){
     if (role == "student") {
         var sip = null;
