@@ -49,6 +49,7 @@ function submitChat() {
 function hostSubmitChat() {
     var roomId = Session.get('roomId');
     var content = $('#input').val();
+    console.log('Input Value: ' + content);
     var d = new Date();
     var messagetime = d.getTime();
     var date = d.toDateString() + " " + d.toLocaleTimeString();
