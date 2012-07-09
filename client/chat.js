@@ -106,11 +106,6 @@ Template.auth.events = {
 
                 var query = Rooms.find();
                 var handle = query.observe({
-                  added: function (item) {
-                    if(item.active) {
-                        ring.play();
-                    }
-                  },
                   changed: function (item,index,oldItem) {
                     if(item.active  && !oldItem.active) {
                         ring.play();
