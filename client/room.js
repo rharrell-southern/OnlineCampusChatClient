@@ -25,17 +25,17 @@ Template.RoomList.events = {
                     $('#hostChatModal #messageList ul').fadeOut('fast',function(){
                         $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
                             $('#ChatModal').show("slide", { direction: "left" }, 500, function() {
-                                 hostSubscribe();
+                                 hostSubscribe('');
                             });
                         });
                     });
                 } else {
                     $('#ChatModal').show("slide", { direction: "left" }, 500,function(){    
-                        hostSubscribe();
+                        hostSubscribe('');
                     });
                 }
             } else {
-                hostSubscribe();
+                hostSubscribe('');
             }
             Meteor.flush();
             $('#ChatModal #messageList').scrollTop(9999999); 
