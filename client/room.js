@@ -18,6 +18,7 @@ Template.RoomList.rooms = function (){
 };
 Template.RoomList.events = {
     'click ul li.room': function(event){
+        var thisID = this._id;
         $('#ChatModal #messageList ul').fadeOut('fast',function(){
             Rooms.update({ _id:this._id},{$set: { host: getUser()}});
             if ($('#ChatModal').css('display') == 'none') {
@@ -25,16 +26,16 @@ Template.RoomList.events = {
                     $('#hostChatModal #messageList ul').fadeOut('fast');
                     $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
                         $('#ChatModal').show("slide", { direction: "left" }, 500, function() {
-                            hostSubscribe('',this._id);
+                            hostSubscribe('',thisID);
                         });
                     });
                 } else {
                     $('#ChatModal').show("slide", { direction: "left" }, 500,function(){    
-                        hostSubscribe('',this._id);
+                        hostSubscribe('',thisID);
                     });
                 }
             } else {
-                hostSubscribe('',this._id);
+                hostSubscribe('',thisID);
             }
             Meteor.flush();
             $('#ChatModal #messageList').scrollTop(9999999); 
@@ -45,22 +46,23 @@ Template.RoomList.events = {
 
 Template.HostList.events = {
     'click ul li.host': function(event){
+        var thisID = this._id;
         $('#hostChatModal #messageList ul').fadeOut('fast',function(){  
             if ($('#hostChatModal').css('display') == 'none') {
                 if ($('#ChatModal').css('display') == 'block') {
                     $('#ChatModal #messageList ul').fadeOut('fast');
                     $('#ChatModal').hide("slide", { direction: "left" }, 300,function(){
                         $('#hostChatModal').show("slide", { direction: "left" }, 500, function(){
-                            hostSubscribe('host',this._id);
+                            hostSubscribe('host',thisID);
                         });
                     });
                 } else {
                     $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
-                        hostSubscribe('host',this._id);
+                        hostSubscribe('host',thisID);
                     });
                 }
             } else {
-                hostSubscribe('host',this._id);
+                hostSubscribe('host',thisID);
             }
             Meteor.flush();
             $('#hostChatModal #messageList').scrollTop(9999999);
