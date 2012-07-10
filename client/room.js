@@ -25,6 +25,7 @@ Template.RoomList.events = {
                 if ($('#hostChatModal').css('display') == 'block') {
                     $('#hostChatModal #messageList ul').fadeOut('fast',function(){
                         $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
+                            $('#ChatModal #messageList ul').hide();
                             $('#ChatModal').show("slide", { direction: "left" }, 500, function() {
                                 hostSubscribe('',thisID);
                             });
@@ -53,6 +54,7 @@ Template.HostList.events = {
                 if ($('#ChatModal').css('display') == 'block') {
                     $('#ChatModal #messageList ul').fadeOut('fast',function(){
                         $('#ChatModal').hide("slide", { direction: "left" }, 300,function(){
+                            $('#hostChatModal #messageList ul').hide();
                             $('#hostChatModal').show("slide", { direction: "left" }, 500, function(){
                                 hostSubscribe('host',thisID);
                             });
