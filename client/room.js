@@ -12,32 +12,24 @@ Template.RoomList.events = {
     'click ul li.room': function(event){
         Session.set('roomId',this._id);
         $('#chatModal #messageList ul').fadeOut('fast',function(){
+            Rooms.update({ _id:this._id},{$set: { host: getUser()}});
+            if ($('#chatModal').css('display') == 'none') {
+                if ($('#hostChatModal').css('display') == 'block') {
+                    $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
+                        $('#chatModal').show("slide", { direction: "left" }, 500);
+                    });
+                } else {
+                    $('#chatModal').show("slide", { direction: "left" }, 500);
+                }
+            }
             Meteor.autosubscribe(function(){
                 Meteor.subscribe("messages", Session.get('roomId'),function(){ 
-                    Rooms.update({ _id:this._id},{$set: { host: getUser()}});
-                    if ($('#chatModal').css('display') == 'none') {
-                        console.log($('#hostChatModal').css('display'));
-                        if ($('#hostChatModal').css('display') == 'block') {
-                            $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
-                                $('#chatModal').show("slide", { direction: "left" }, 500,function(){
-                                    Meteor.flush();
-                                    $('#chatModal #messageList').scrollTop(9999999);
-                                    $('#chatModal #input').focus();
-                                });
-                            });
-                        } else {
-                            $('#chatModal').show("slide", { direction: "left" }, 500,function(){
-                                Meteor.flush();
-                                $('#chatModal #messageList').scrollTop(9999999);
-                                $('#chatModal #input').focus();
-                            });
-                        }
-                    }
-                    Meteor.flush();
-                    $('#chatModal #messageList').scrollTop(9999999); 
                     $('#chatModal #messageList ul').fadeIn('fast');
                 });
             });
+            Meteor.flush();
+            $('#chatModal #messageList').scrollTop(9999999); 
+            $('#chatModal #input').focus();
         });
     }
 }
@@ -46,31 +38,23 @@ Template.HostList.events = {
     'click ul li.host': function(event){
         Session.set('roomId',this._id);
         $('#hostChatModal #messageList ul').fadeOut('fast',function(){  
+            if ($('#hostChatModal').css('display') == 'none') {
+                if ($('#chatModal').css('display') == 'block') {
+                    $('#chatModal').hide("slide", { direction: "left" }, 300,function(){
+                        $('#hostChatModal').show("slide", { direction: "left" }, 500);
+                    });
+                } else {
+                    $('#hostChatModal').show("slide", { direction: "left" }, 500);
+                }
+            }
             Meteor.autosubscribe(function(){
                 Meteor.subscribe("messages", Session.get('roomId'),function(){  
-                    if ($('#hostChatModal').css('display') == 'none') {
-                        console.log($('#chatModal').css('display'));
-                        if ($('#chatModal').css('display') == 'block') {
-                            $('#chatModal').hide("slide", { direction: "left" }, 300,function(){
-                                $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
-                                    Meteor.flush();
-                                    $('#hostChatModal #messageList').scrollTop(9999999);
-                                    $('#hostChatModal #input').focus();
-                                });
-                            });
-                        } else {
-                            $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
-                                Meteor.flush();
-                                $('#hostChatModal #messageList').scrollTop(9999999);
-                                $('#hostChatModal #input').focus();
-                            });
-                        }
-                    }
-                    Meteor.flush();
-                    $('#hostChatModal #messageList').scrollTop(9999999);
                     $('#hostChatModal #messageList ul').fadeIn('fast');
                 });
             });
+            Meteor.flush();
+            $('#hostChatModal #messageList').scrollTop(9999999);
+            $('#hostChatModal #input').focus();
         });
     }
 }
