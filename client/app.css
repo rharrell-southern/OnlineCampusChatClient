@@ -154,7 +154,7 @@ button.close {
 #roomList li span.classroom{
     font-weight: bold;
 }
-#chatModal,
+#ChatModal,
 #hostChatModal {
     display:none;
     float:left;
@@ -169,7 +169,7 @@ button.close {
 #hostChatModal {
     background-color:#BBD3ED;
 }
-#chatModal .modal-body,
+#ChatModal .modal-body,
 #hostChatModal .modal-body {
     height:660px;
 }

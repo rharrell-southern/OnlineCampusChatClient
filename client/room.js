@@ -1,3 +1,10 @@
+function hostSubscribe(method) {
+    Meteor.autosubscribe(function(){
+        Meteor.subscribe("messages", Session.get('roomId'),function(){ 
+            $('#'+method+'ChatModal #messageList ul').fadeIn('fast');
+        });
+    });
+}
 Template.RoomList.rooms = function (){
     var filter = {};
     if(Session.get('filterValue')) {
@@ -11,25 +18,26 @@ Template.RoomList.rooms = function (){
 Template.RoomList.events = {
     'click ul li.room': function(event){
         Session.set('roomId',this._id);
-        $('#chatModal #messageList ul').fadeOut('fast',function(){
+        $('#ChatModal #messageList ul').fadeOut('fast',function(){
             Rooms.update({ _id:this._id},{$set: { host: getUser()}});
-            if ($('#chatModal').css('display') == 'none') {
+            if ($('#ChatModal').css('display') == 'none') {
                 if ($('#hostChatModal').css('display') == 'block') {
                     $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
-                        $('#chatModal').show("slide", { direction: "left" }, 500);
+                        $('#ChatModal').show("slide", { direction: "left" }, 500, function() {
+                             hostSubscribe();
+                        });
                     });
                 } else {
-                    $('#chatModal').show("slide", { direction: "left" }, 500);
+                    $('#ChatModal').show("slide", { direction: "left" }, 500,function(){    
+                        hostSubscribe();
+                    });
                 }
+            } else {
+                hostSubscribe();
             }
-            Meteor.autosubscribe(function(){
-                Meteor.subscribe("messages", Session.get('roomId'),function(){ 
-                    $('#chatModal #messageList ul').fadeIn('fast');
-                });
-            });
             Meteor.flush();
-            $('#chatModal #messageList').scrollTop(9999999); 
-            $('#chatModal #input').focus();
+            $('#ChatModal #messageList').scrollTop(9999999); 
+            $('#ChatModal #input').focus();
         });
     }
 }
@@ -41,17 +49,18 @@ Template.HostList.events = {
             if ($('#hostChatModal').css('display') == 'none') {
                 if ($('#chatModal').css('display') == 'block') {
                     $('#chatModal').hide("slide", { direction: "left" }, 300,function(){
-                        $('#hostChatModal').show("slide", { direction: "left" }, 500);
+                        $('#hostChatModal').show("slide", { direction: "left" }, 500, function(){
+                            hostSubscribe('host');
+                        });
                     });
                 } else {
-                    $('#hostChatModal').show("slide", { direction: "left" }, 500);
+                    $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
+                        hostSubscribe('host');
+                    });
                 }
+            } else {
+                hostSubscribe('host');
             }
-            Meteor.autosubscribe(function(){
-                Meteor.subscribe("messages", Session.get('roomId'),function(){  
-                    $('#hostChatModal #messageList ul').fadeIn('fast');
-                });
-            });
             Meteor.flush();
             $('#hostChatModal #messageList').scrollTop(9999999);
             $('#hostChatModal #input').focus();
