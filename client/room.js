@@ -18,57 +18,53 @@ Template.RoomList.rooms = function (){
 Template.RoomList.events = {
     'click ul li.room': function(event){
         Session.set('roomId',this._id);
-        $('#ChatModal #messageList ul').fadeOut('fast',function(){
-            Rooms.update({ _id:this._id},{$set: { host: getUser()}});
-            if ($('#ChatModal').css('display') == 'none') {
-                if ($('#hostChatModal').css('display') == 'block') {
-                    $('#hostChatModal #messageList ul').fadeOut('fast',function(){
-                        $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
-                            $('#ChatModal').show("slide", { direction: "left" }, 500, function() {
-                                 hostSubscribe();
-                            });
+        Rooms.update({ _id:this._id},{$set: { host: getUser()}});
+        if ($('#ChatModal').css('display') == 'none') {
+            if ($('#hostChatModal').css('display') == 'block') {
+                $('#hostChatModal #messageList ul').fadeOut('fast',function(){
+                    $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
+                        $('#ChatModal').show("slide", { direction: "left" }, 500, function() {
+                             hostSubscribe();
                         });
                     });
-                } else {
-                    $('#ChatModal').show("slide", { direction: "left" }, 500,function(){    
-                        hostSubscribe();
-                    });
-                }
+                });
             } else {
-                hostSubscribe();
+                $('#ChatModal').show("slide", { direction: "left" }, 500,function(){    
+                    hostSubscribe();
+                });
             }
-            Meteor.flush();
-            $('#ChatModal #messageList').scrollTop(9999999); 
-            $('#ChatModal #input').focus();
-        });
+        } else {
+            hostSubscribe();
+        }
+        Meteor.flush();
+        $('#ChatModal #messageList').scrollTop(9999999); 
+        $('#ChatModal #input').focus();
     }
 }
 
 Template.HostList.events = {
     'click ul li.host': function(event){
-        Session.set('roomId',this._id);
-        $('#hostChatModal #messageList ul').fadeOut('fast',function(){  
-            if ($('#hostChatModal').css('display') == 'none') {
-                if ($('#ChatModal').css('display') == 'block') {
-                    $('#ChatModal #messageList ul').fadeOut('fast',function(){
-                        $('#ChatModal').hide("slide", { direction: "left" }, 300,function(){
-                            $('#hostChatModal').show("slide", { direction: "left" }, 500, function(){
-                                hostSubscribe('host');
-                            });
+        Session.set('roomId',this._id); 
+        if ($('#hostChatModal').css('display') == 'none') {
+            if ($('#ChatModal').css('display') == 'block') {
+                $('#ChatModal #messageList ul').fadeOut('fast',function(){
+                    $('#ChatModal').hide("slide", { direction: "left" }, 300,function(){
+                        $('#hostChatModal').show("slide", { direction: "left" }, 500, function(){
+                            hostSubscribe('host');
                         });
                     });
-                } else {
-                    $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
-                        hostSubscribe('host');
-                    });
-                }
+                });
             } else {
-                hostSubscribe('host');
+                $('#hostChatModal').show("slide", { direction: "left" }, 500,function(){
+                    hostSubscribe('host');
+                });
             }
-            Meteor.flush();
-            $('#hostChatModal #messageList').scrollTop(9999999);
-            $('#hostChatModal #input').focus();
-        });
+        } else {
+            hostSubscribe('host');
+        }
+        Meteor.flush();
+        $('#hostChatModal #messageList').scrollTop(9999999);
+        $('#hostChatModal #input').focus();
     }
 }
 Template.filterForm.events = {
