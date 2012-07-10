@@ -2,9 +2,9 @@ html, body {
     margin:0px;
     padding:0px;
     background-color:#666;
-  font-family:"Geneva",sans-serif;
-  font-size: 12px;
-  line-height: 14px;
+    font-family:"Geneva",sans-serif;
+    font-size: 12px;
+    line-height: 14px;
 }
 h1,h2{
     margin:0px;
@@ -64,13 +64,13 @@ h1,h2{
     margin:5px;
 }
 #messageList {
-  width:520px;
-  height:570px;
-  overflow-y:scroll;
-  padding:0px;
-  border:1px solid #CCC;
-  margin-top: 5px;
-  background-color: #DDD;
+    width:520px;
+    height:570px;
+    overflow-y:scroll;
+    padding:0px;
+    border:1px solid #CCC;
+    margin-top: 5px;
+    background-color: #DDD;
 }
 #messageList ul {
     padding-bottom:20px;
