@@ -22,9 +22,11 @@ Template.RoomList.events = {
             Rooms.update({ _id:this._id},{$set: { host: getUser()}});
             if ($('#ChatModal').css('display') == 'none') {
                 if ($('#hostChatModal').css('display') == 'block') {
-                    $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
-                        $('#ChatModal').show("slide", { direction: "left" }, 500, function() {
-                             hostSubscribe();
+                    $('#hostChatModal #messageList ul').fadeOut('fast',function(){
+                        $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
+                            $('#ChatModal').show("slide", { direction: "left" }, 500, function() {
+                                 hostSubscribe();
+                            });
                         });
                     });
                 } else {
@@ -48,9 +50,11 @@ Template.HostList.events = {
         $('#hostChatModal #messageList ul').fadeOut('fast',function(){  
             if ($('#hostChatModal').css('display') == 'none') {
                 if ($('#ChatModal').css('display') == 'block') {
-                    $('#ChatModal').hide("slide", { direction: "left" }, 300,function(){
-                        $('#hostChatModal').show("slide", { direction: "left" }, 500, function(){
-                            hostSubscribe('host');
+                    $('#ChatModal #messageList ul').fadeOut('fast',function(){
+                        $('#ChatModal').hide("slide", { direction: "left" }, 300,function(){
+                            $('#hostChatModal').show("slide", { direction: "left" }, 500, function(){
+                                hostSubscribe('host');
+                            });
                         });
                     });
                 } else {
