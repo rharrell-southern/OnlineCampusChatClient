@@ -23,10 +23,11 @@ Template.RoomList.events = {
             Rooms.update({ _id:this._id},{$set: { host: getUser()}});
             if ($('#ChatModal').css('display') == 'none') {
                 if ($('#hostChatModal').css('display') == 'block') {
-                    $('#hostChatModal #messageList ul').fadeOut('fast');
-                    $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
-                        $('#ChatModal').show("slide", { direction: "left" }, 500, function() {
-                            hostSubscribe('',thisID);
+                    $('#hostChatModal #messageList ul').fadeOut('fast',function(){
+                        $('#hostChatModal').hide("slide", { direction: "left" }, 300, function(){
+                            $('#ChatModal').show("slide", { direction: "left" }, 500, function() {
+                                hostSubscribe('',thisID);
+                            });
                         });
                     });
                 } else {
@@ -50,10 +51,11 @@ Template.HostList.events = {
         $('#hostChatModal #messageList ul').fadeOut('fast',function(){  
             if ($('#hostChatModal').css('display') == 'none') {
                 if ($('#ChatModal').css('display') == 'block') {
-                    $('#ChatModal #messageList ul').fadeOut('fast');
-                    $('#ChatModal').hide("slide", { direction: "left" }, 300,function(){
-                        $('#hostChatModal').show("slide", { direction: "left" }, 500, function(){
-                            hostSubscribe('host',thisID);
+                    $('#ChatModal #messageList ul').fadeOut('fast',function(){
+                        $('#ChatModal').hide("slide", { direction: "left" }, 300,function(){
+                            $('#hostChatModal').show("slide", { direction: "left" }, 500, function(){
+                                hostSubscribe('host',thisID);
+                            });
                         });
                     });
                 } else {
