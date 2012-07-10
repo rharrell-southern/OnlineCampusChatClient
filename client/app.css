@@ -173,7 +173,10 @@ button.close {
 #hostChatModal .modal-body {
     height:660px;
 }
-
+#ChatModal #messageList ul,
+#hostChatModal #messageList ul {
+    display:none;
+}
 #hostList {
     width:180px;
     float:left;
